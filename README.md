@@ -120,23 +120,6 @@ The dataset can be obtained from the following sources:
    - Download page: https://www.uniprot.org/downloads
    - To filter for enzymes with EC numbers, use the query: `ec:*` in the search
 
-2. **BRENDA Enzyme Database**:
-   - Main website: https://www.brenda-enzymes.org/
-   - Database access: https://www.brenda-enzymes.org/search_result.php
-   - Provides comprehensive EC number annotations
-
-3. **UniProt REST API** (for programmatic access):
-   ```python
-   # Example: Download proteins with EC numbers
-   import requests
-   url = "https://rest.uniprot.org/uniprotkb/search"
-   params = {
-       "query": "ec:*",
-       "format": "tsv",
-       "fields": "accession,id,protein_name,sequence,ec"
-   }
-   ```
-
 4. **Direct Download Links** (if available):
    - UniProt releases: https://www.uniprot.org/downloads
    - Select "UniProtKB" → "Reviewed (Swiss-Prot)" or "Unreviewed (TrEMBL)"
@@ -380,4 +363,5 @@ For questions or issues, please refer to the project repository or contact the a
 ---
 
 **Last Updated**: 2024
+
 
