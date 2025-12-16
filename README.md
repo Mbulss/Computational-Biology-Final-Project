@@ -21,6 +21,8 @@ This project implements multiple machine learning models for predicting Enzyme C
 
 This project uses ESM2 (facebook/esm2_t12_35M_UR50D) to generate protein sequence embeddings, which are then used as features for various machine learning classifiers to predict EC numbers. The models are trained on a dataset of 236,607 protein sequences with 263 unique EC number classes.
 
+> **📦 Pre-trained Models Available**: All trained models and generated embeddings are available on Google Drive for quick inference without training. See [Quick Start](#quick-start) section for download instructions.
+
 ## Features
 
 - **ESM2 Embedding Extraction**: Uses pre-trained ESM2 model to generate 480-dimensional embeddings
@@ -120,6 +122,23 @@ The dataset can be obtained from the following sources:
    - Download page: https://www.uniprot.org/downloads
    - To filter for enzymes with EC numbers, use the query: `ec:*` in the search
 
+2. **BRENDA Enzyme Database**:
+   - Main website: https://www.brenda-enzymes.org/
+   - Database access: https://www.brenda-enzymes.org/search_result.php
+   - Provides comprehensive EC number annotations
+
+3. **UniProt REST API** (for programmatic access):
+   ```python
+   # Example: Download proteins with EC numbers
+   import requests
+   url = "https://rest.uniprot.org/uniprotkb/search"
+   params = {
+       "query": "ec:*",
+       "format": "tsv",
+       "fields": "accession,id,protein_name,sequence,ec"
+   }
+   ```
+
 4. **Direct Download Links** (if available):
    - UniProt releases: https://www.uniprot.org/downloads
    - Select "UniProtKB" → "Reviewed (Swiss-Prot)" or "Unreviewed (TrEMBL)"
@@ -157,6 +176,8 @@ If you need to create the dataset from UniProt:
 
 ## Project Structure
 
+### Files in GitHub Repository
+
 ```
 .
 ├── README.md                          # This file
@@ -164,28 +185,53 @@ If you need to create the dataset from UniProt:
 ├── 3_levels_EC.tsv                   # Dataset file
 ├── ML & Data Processing.ipynb        # Data processing, RF, and XGBoost training
 ├── MLP.ipynb                         # MLP model training and inference
-├── BiLSTM.ipynb                      # BiLSTM model training and inference
-├── esm2_features.npy                 # Generated ESM2 embeddings (after running data processing)
-├── rf_ec_esm2.joblib                 # Trained RandomForest model
-├── xgboost_ec_cpu_hist.json          # Trained XGBoost model
-├── mlp_ec_esm2.pt                    # Trained MLP model weights
-├── bilstm_ec_esm2.pt                 # Trained BiLSTM model weights
-└── label_encoder_ec_esm2.joblib      # Label encoder for EC numbers
+└── BiLSTM.ipynb                      # BiLSTM model training and inference
 ```
+
+### Pre-trained Models and Generated Files (Google Drive)
+
+The following files are available on Google Drive to avoid re-running training:
+
+- `esm2_features.npy` - Generated ESM2 embeddings (236,607 × 480)
+- `rf_ec_esm2.joblib` - Trained RandomForest model
+- `xgboost_ec_cpu_hist.json` - Trained XGBoost model
+- `mlp_ec_esm2.pt` - Trained MLP model weights
+- `bilstm_ec_esm2.pt` - Trained BiLSTM model weights
+- `label_encoder_ec_esm2.joblib` - Label encoder for EC numbers
+
+**Download Link**: [Google Drive - Pre-trained Models](YOUR_GOOGLE_DRIVE_LINK_HERE)
+
+**Note**: Replace `YOUR_GOOGLE_DRIVE_LINK_HERE` with your actual Google Drive link. Make sure the link is set to "Anyone with the link can view" for public access.
 
 ## Quick Start
 
-For a quick test with pre-trained models (if available):
+### Option 1: Using Pre-trained Models (Recommended)
 
-1. Ensure you have the required files:
-   - `3_levels_EC.tsv` (dataset)
-   - `esm2_features.npy` (or generate it)
-   - Model files (`.joblib`, `.pt`, `.json`)
-   - `label_encoder_ec_esm2.joblib`
+For quick testing without training:
 
-2. Open any inference notebook (MLP.ipynb, BiLSTM.ipynb, or ML & Data Processing.ipynb inference cells)
+1. **Download pre-trained models from Google Drive**:
+   - Go to: [Google Drive - Pre-trained Models](YOUR_GOOGLE_DRIVE_LINK_HERE)
+   - Download all files to the project root directory:
+     - `esm2_features.npy`
+     - `rf_ec_esm2.joblib`
+     - `xgboost_ec_cpu_hist.json`
+     - `mlp_ec_esm2.pt`
+     - `bilstm_ec_esm2.pt`
+     - `label_encoder_ec_esm2.joblib`
 
-3. Run the setup cells, then use the prediction function with a protein sequence
+2. **Ensure dataset is available**:
+   - Place `3_levels_EC.tsv` in the project root directory
+
+3. **Open any inference notebook**:
+   - `MLP.ipynb` (Cells 2-6)
+   - `BiLSTM.ipynb` (Cells 1-4)
+   - `ML & Data Processing.ipynb` (Cells 10-14)
+
+4. **Run the setup cells**, then use the prediction function with a protein sequence
+
+### Option 2: Training from Scratch
+
+If you want to train the models yourself, follow the full usage instructions below.
 
 ## Usage
 
@@ -211,11 +257,13 @@ This notebook performs:
    - Cell 7: Generate classification report for XGBoost
    - Cell 8: Save XGBoost model
 
-**Output files**:
-- `esm2_features.npy`: ESM2 embeddings (236,607 × 480)
-- `rf_ec_esm2.joblib`: Trained RandomForest model
-- `label_encoder_ec_esm2.joblib`: Label encoder
-- `xgboost_ec_cpu_hist.json`: Trained XGBoost model
+**Output files** (will be saved locally, or download from Google Drive):
+- `esm2_features.npy`: ESM2 embeddings (236,607 × 480) - **~450 MB**
+- `rf_ec_esm2.joblib`: Trained RandomForest model - **~500 MB**
+- `label_encoder_ec_esm2.joblib`: Label encoder - **~50 KB**
+- `xgboost_ec_cpu_hist.json`: Trained XGBoost model - **~200 MB**
+
+**Note**: These files are also available for download from [Google Drive](YOUR_GOOGLE_DRIVE_LINK_HERE) to save time.
 
 ### 2. Training Models
 
@@ -225,7 +273,9 @@ This notebook performs:
 
 1. Open `MLP.ipynb`
 2. Run Cell 0 to train the MLP model
-3. The model will be saved as `mlp_ec_esm2.pt`
+3. The model will be saved as `mlp_ec_esm2.pt` (~50 MB)
+
+**Alternative**: Download pre-trained model from [Google Drive](YOUR_GOOGLE_DRIVE_LINK_HERE)
 
 #### BiLSTM Model
 
@@ -233,9 +283,11 @@ This notebook performs:
 
 1. Open `BiLSTM.ipynb`
 2. Run Cell 0 to train the BiLSTM model
-3. The model will be saved as `bilstm_ec_esm2.pt`
+3. The model will be saved as `bilstm_ec_esm2.pt` (~5 MB)
 
-**Note**: Both MLP and BiLSTM require `esm2_features.npy` to be generated first.
+**Alternative**: Download pre-trained model from [Google Drive](YOUR_GOOGLE_DRIVE_LINK_HERE)
+
+**Note**: Both MLP and BiLSTM require `esm2_features.npy` to be generated first (or downloaded from Google Drive).
 
 ### 3. Inference/Prediction
 
@@ -312,14 +364,21 @@ Based on test set evaluation (20% holdout):
   - BiLSTM model definition and training
   - Standalone inference code
 
-### Model Files
+### Model Files (Available on Google Drive)
 
-- **esm2_features.npy**: Pre-computed ESM2 embeddings (236,607 × 480)
-- **rf_ec_esm2.joblib**: Trained RandomForest classifier
-- **xgboost_ec_cpu_hist.json**: Trained XGBoost model
-- **mlp_ec_esm2.pt**: MLP model weights (PyTorch)
-- **bilstm_ec_esm2.pt**: BiLSTM model weights (PyTorch)
-- **label_encoder_ec_esm2.joblib**: Label encoder mapping EC numbers to integers
+All pre-trained models and generated files can be downloaded from:
+**[Google Drive - Pre-trained Models](YOUR_GOOGLE_DRIVE_LINK_HERE)**
+
+- **esm2_features.npy**: Pre-computed ESM2 embeddings (236,607 × 480) - ~450 MB
+- **rf_ec_esm2.joblib**: Trained RandomForest classifier - ~500 MB
+- **xgboost_ec_cpu_hist.json**: Trained XGBoost model - ~200 MB
+- **mlp_ec_esm2.pt**: MLP model weights (PyTorch) - ~50 MB
+- **bilstm_ec_esm2.pt**: BiLSTM model weights (PyTorch) - ~5 MB
+- **label_encoder_ec_esm2.joblib**: Label encoder mapping EC numbers to integers - ~50 KB
+
+**Total size**: ~1.2 GB
+
+**Note**: These files are not included in the GitHub repository to keep it lightweight. Download them from Google Drive for quick inference without training.
 
 ## Troubleshooting
 
@@ -330,8 +389,10 @@ Based on test set evaluation (20% holdout):
    - Use CPU for inference if GPU memory is limited
 
 2. **Model files not found**:
-   - Ensure you've run the training cells first
+   - **Option 1**: Download pre-trained models from [Google Drive](YOUR_GOOGLE_DRIVE_LINK_HERE)
+   - **Option 2**: Run the training cells first to generate model files
    - Check that model files are in the project root directory
+   - Verify file names match exactly (case-sensitive)
 
 3. **ESM2 model download issues**:
    - The model will be downloaded automatically on first use
@@ -341,7 +402,5 @@ Based on test set evaluation (20% holdout):
 4. **Import errors**:
    - Verify all dependencies are installed: `pip install -r requirements.txt`
    - Check Python version (3.8+)
-
-
 
 
