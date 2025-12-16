@@ -21,7 +21,8 @@ This project implements multiple machine learning models for predicting Enzyme C
 
 This project uses ESM2 (facebook/esm2_t12_35M_UR50D) to generate protein sequence embeddings, which are then used as features for various machine learning classifiers to predict EC numbers. The models are trained on a dataset of 236,607 protein sequences with 263 unique EC number classes.
 
-> **📦 Pre-trained Models Available**: All trained models and generated embeddings are available on Google Drive for quick inference without training. See [Quick Start](#quick-start) section for download instructions.
+> **📦 Pre-trained Models Available**: All trained models and generated embeddings are available on Google Drive for quick inference without training. See [Quick Start](#quic
+> k-start) section for download instructions.
 
 ## Features
 
@@ -199,7 +200,7 @@ The following files are available on Google Drive to avoid re-running training:
 - `bilstm_ec_esm2.pt` - Trained BiLSTM model weights
 - `label_encoder_ec_esm2.joblib` - Label encoder for EC numbers
 
-**Download Link**: [Google Drive - Pre-trained Models](YOUR_GOOGLE_DRIVE_LINK_HERE)
+**Download Link**: [Google Drive - Pre-trained Models](https://drive.google.com/file/d/1G4_dDKcvTQw6fyubDucJFcjfdBt_lxPg/view?usp=sharing)
 
 **Note**: Replace `YOUR_GOOGLE_DRIVE_LINK_HERE` with your actual Google Drive link. Make sure the link is set to "Anyone with the link can view" for public access.
 
@@ -210,7 +211,7 @@ The following files are available on Google Drive to avoid re-running training:
 For quick testing without training:
 
 1. **Download pre-trained models from Google Drive**:
-   - Go to: [Google Drive - Pre-trained Models](YOUR_GOOGLE_DRIVE_LINK_HERE)
+   - Go to: [Google Drive - Pre-trained Models](https://drive.google.com/file/d/1G4_dDKcvTQw6fyubDucJFcjfdBt_lxPg/view?usp=sharing)
    - Download all files to the project root directory:
      - `esm2_features.npy`
      - `rf_ec_esm2.joblib`
@@ -263,7 +264,7 @@ This notebook performs:
 - `label_encoder_ec_esm2.joblib`: Label encoder - **~50 KB**
 - `xgboost_ec_cpu_hist.json`: Trained XGBoost model - **~200 MB**
 
-**Note**: These files are also available for download from [Google Drive](YOUR_GOOGLE_DRIVE_LINK_HERE) to save time.
+**Note**: These files are also available for download from [Google Drive](https://drive.google.com/file/d/1G4_dDKcvTQw6fyubDucJFcjfdBt_lxPg/view?usp=sharing) to save time.
 
 ### 2. Training Models
 
@@ -275,7 +276,7 @@ This notebook performs:
 2. Run Cell 0 to train the MLP model
 3. The model will be saved as `mlp_ec_esm2.pt` (~50 MB)
 
-**Alternative**: Download pre-trained model from [Google Drive](YOUR_GOOGLE_DRIVE_LINK_HERE)
+**Alternative**: Download pre-trained model from [Google Drive](https://drive.google.com/file/d/1G4_dDKcvTQw6fyubDucJFcjfdBt_lxPg/view?usp=sharing)
 
 #### BiLSTM Model
 
@@ -285,7 +286,7 @@ This notebook performs:
 2. Run Cell 0 to train the BiLSTM model
 3. The model will be saved as `bilstm_ec_esm2.pt` (~5 MB)
 
-**Alternative**: Download pre-trained model from [Google Drive](YOUR_GOOGLE_DRIVE_LINK_HERE)
+**Alternative**: Download pre-trained model from [Google Drive](https://drive.google.com/file/d/1G4_dDKcvTQw6fyubDucJFcjfdBt_lxPg/view?usp=sharing)
 
 **Note**: Both MLP and BiLSTM require `esm2_features.npy` to be generated first (or downloaded from Google Drive).
 
@@ -367,7 +368,7 @@ Based on test set evaluation (20% holdout):
 ### Model Files (Available on Google Drive)
 
 All pre-trained models and generated files can be downloaded from:
-**[Google Drive - Pre-trained Models](YOUR_GOOGLE_DRIVE_LINK_HERE)**
+**[Google Drive - Pre-trained Models](https://drive.google.com/file/d/1G4_dDKcvTQw6fyubDucJFcjfdBt_lxPg/view?usp=sharing)**
 
 - **esm2_features.npy**: Pre-computed ESM2 embeddings (236,607 × 480) - ~450 MB
 - **rf_ec_esm2.joblib**: Trained RandomForest classifier - ~500 MB
@@ -389,7 +390,7 @@ All pre-trained models and generated files can be downloaded from:
    - Use CPU for inference if GPU memory is limited
 
 2. **Model files not found**:
-   - **Option 1**: Download pre-trained models from [Google Drive](YOUR_GOOGLE_DRIVE_LINK_HERE)
+   - **Option 1**: Download pre-trained models from [Google Drive](https://drive.google.com/file/d/1G4_dDKcvTQw6fyubDucJFcjfdBt_lxPg/view?usp=sharing)
    - **Option 2**: Run the training cells first to generate model files
    - Check that model files are in the project root directory
    - Verify file names match exactly (case-sensitive)
@@ -402,5 +403,6 @@ All pre-trained models and generated files can be downloaded from:
 4. **Import errors**:
    - Verify all dependencies are installed: `pip install -r requirements.txt`
    - Check Python version (3.8+)
+
 
 
