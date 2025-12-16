@@ -342,26 +342,6 @@ Based on test set evaluation (20% holdout):
    - Verify all dependencies are installed: `pip install -r requirements.txt`
    - Check Python version (3.8+)
 
-## Citation
 
-If you use this code or models, please cite:
-
-- ESM2: [Rives et al., 2021](https://www.biorxiv.org/content/10.1101/2021.07.09.450648v1)
-- ESM models: [Facebook AI Research](https://github.com/facebookresearch/esm)
-
-## License
-
-This project is for educational/research purposes. Please check the licenses of:
-- ESM2 models (Facebook AI Research)
-- Dataset sources (UniProt, BRENDA)
-- Python packages used
-
-## Contact
-
-For questions or issues, please refer to the project repository or contact the authors.
-
----
-
-**Last Updated**: 2024
 
 
